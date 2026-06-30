@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  education,
   hero,
   initiatives,
   navigation,
@@ -26,41 +25,48 @@ const collectStrings = (value: unknown): string[] => {
 };
 
 describe("site content", () => {
-  it("contains the approved navigation, message, and records", () => {
+  it("contains the approved launch positioning", () => {
     expect(navigation.map(({ label }) => label)).toEqual([
       "Services",
-      "Education",
-      "Initiatives",
+      "Selected work",
       "Process",
       "About",
     ]);
     expect(hero).toMatchObject({
-      headline: "Practical AI for schools and growing organizations.",
+      headline: "Custom software built around how your business actually works.",
+      subheading:
+        "Kaisone builds practical internal tools, automation systems, AI-powered workflows, and prototypes that replace inefficient manual processes.",
       primaryAction: {
-        label: "Request an AI readiness session",
+        label: "Discuss your project",
       },
     });
-    expect(services.map(({ title }) => title)).toEqual([
-      "AI Training",
-      "Workflow Automation",
-      "Focused Software",
+  });
+
+  it("lists the four approved services and prices", () => {
+    expect(services.map(({ title, price }) => `${title} — ${price}`)).toEqual([
+      "Workflow Fix — TZS 900K",
+      "Prototype Sprint — TZS 1.2M",
+      "Operations System — TZS 3M",
+      "System Care — TZS 350K/month",
     ]);
-    expect(education.map(({ title }) => title)).toEqual([
-      "AI fundamentals",
-      "Responsible use",
-      "Classroom productivity",
-      "School operations",
-    ]);
+    for (const service of services) {
+      expect(service.summary.trim()).not.toBe("");
+      expect(service.details.length).toBeGreaterThan(0);
+      service.details.forEach((detail) => expect(detail.trim()).not.toBe(""));
+    }
+  });
+
+  it("keeps selected work honestly labeled", () => {
     expect(initiatives.map(({ name, status }) => `${name} (${status})`)).toEqual([
       "FK School Platform (Prototype)",
       "MetaPrime (Early stage)",
       "Kaison (Active system)",
     ]);
     expect(processSteps.map(({ title }) => title)).toEqual([
-      "Assess",
-      "Prioritize",
+      "Understand",
+      "Define",
       "Build",
-      "Transfer",
+      "Handover",
     ]);
   });
 
@@ -68,7 +74,6 @@ describe("site content", () => {
     const requiredCollections = {
       navigation,
       services,
-      education,
       initiatives,
       processSteps,
     };
@@ -84,12 +89,11 @@ describe("site content", () => {
     }
   });
 
-  it("rejects unapproved proof claims", () => {
+  it("rejects invented metrics, testimonials, and proof claims", () => {
     const content = collectStrings({
       hero,
       navigation,
       services,
-      education,
       initiatives,
       processSteps,
     }).join(" ");
@@ -99,6 +103,8 @@ describe("site content", () => {
       /\bguaranteed\b/i,
       /\bgovernment approved\b/i,
       /\bproven outcomes\b/i,
+      /\btestimonial(?:s)?\b/i,
+      /\bwhat (?:our )?clients say\b/i,
       /\b\d+(?:[.,]\d+)?\s*%/i,
       /\b\d+(?:[.,]\d+)?\s*(?:x\b|times\b|\+?\s+(?:clients?|schools?|organizations?|students?|users?|projects?|hours?|outcomes?|results?))/i,
     ];

@@ -22,7 +22,7 @@ export function SiteHeader() {
         <nav id="site-nav" className={open ? "site-nav site-nav--open" : "site-nav"} aria-label="Primary navigation">
           {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </nav>
-        <a className="button button--primary header-cta" href="#contact">Request a session</a>
+        <a className="button button--primary header-cta" href="#contact">Discuss your project</a>
       </div>
     </header>
   );

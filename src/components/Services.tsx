@@ -14,7 +14,7 @@ export function Services() {
             return (
               <article className={`service-row ${expanded ? "service-row--open" : ""}`} key={service.id}>
                 <button type="button" aria-expanded={expanded} onClick={() => setActive(expanded ? null : service.id)}>
-                  <span>{service.title}</span><span className="service-summary">{service.summary}</span><span className="row-arrow" aria-hidden="true">↗</span>
+                  <span className="service-name"><span>{service.title}</span><span className="service-price">{service.price}</span></span><span className="service-summary">{service.summary}</span><span className="row-arrow" aria-hidden="true">↗</span>
                 </button>
                 <div className="service-details" aria-hidden={!expanded}>
                   {service.details.map((detail) => <span key={detail}>{detail}</span>)}

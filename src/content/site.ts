@@ -1,6 +1,5 @@
 export type SectionId =
   | "services"
-  | "education"
   | "initiatives"
   | "process"
   | "about"
@@ -13,6 +12,7 @@ export interface NavigationItem {
 
 export interface HeroContent {
   readonly headline: string;
+  readonly subheading: string;
   readonly primaryAction: {
     readonly label: string;
     readonly href: `#${SectionId}`;
@@ -22,14 +22,9 @@ export interface HeroContent {
 export interface Service {
   readonly id: string;
   readonly title: string;
+  readonly price: string;
   readonly summary: string;
   readonly details: readonly string[];
-}
-
-export interface EducationTopic {
-  readonly id: string;
-  readonly title: string;
-  readonly description: string;
 }
 
 export type InitiativeStatus = "Prototype" | "Early stage" | "Active system";
@@ -49,47 +44,51 @@ export interface ProcessStep {
 
 export const navigation = [
   { label: "Services", href: "#services" },
-  { label: "Education", href: "#education" },
-  { label: "Initiatives", href: "#initiatives" },
+  { label: "Selected work", href: "#initiatives" },
   { label: "Process", href: "#process" },
   { label: "About", href: "#about" },
 ] as const satisfies readonly NavigationItem[];
 
 export const hero = {
-  headline: "Practical AI for schools and growing organizations.",
+  headline: "Custom software built around how your business actually works.",
+  subheading:
+    "Kaisone builds practical internal tools, automation systems, AI-powered workflows, and prototypes that replace inefficient manual processes.",
   primaryAction: {
-    label: "Request an AI readiness session",
+    label: "Discuss your project",
     href: "#contact",
   },
 } as const satisfies HeroContent;
 
 export const services = [
   {
-    id: "ai-training",
-    title: "AI Training",
-    summary: "Build practical capability before buying more tools.",
-    details: ["Staff and leadership workshops", "Responsible use guidelines", "Role-specific workflows"],
+    id: "workflow-fix",
+    title: "Workflow Fix",
+    price: "TZS 900K",
+    summary: "Improve one inefficient process with a focused automation.",
+    details: ["Process mapping", "One focused automation", "Handover notes"],
   },
   {
-    id: "workflow-automation",
-    title: "Workflow Automation",
-    summary: "Reduce repetitive work around the systems you already use.",
-    details: ["Workflow assessment", "Practical automations", "Clear operating documentation"],
+    id: "prototype-sprint",
+    title: "Prototype Sprint",
+    price: "TZS 1.2M",
+    summary: "Turn a defined idea into a working prototype for review.",
+    details: ["Scope and user flow", "Working prototype", "Review and next-step brief"],
   },
   {
-    id: "focused-software",
-    title: "Focused Software",
-    summary: "Build only when a real operational need justifies it.",
-    details: ["Internal tools", "Focused web applications", "Local-first systems"],
+    id: "operations-system",
+    title: "Operations System",
+    price: "TZS 3M",
+    summary: "Build an internal system around a core operational workflow.",
+    details: ["Workflow design", "Internal tool or automation", "Team handover"],
+  },
+  {
+    id: "system-care",
+    title: "System Care",
+    price: "TZS 350K/month",
+    summary: "Maintain and improve a system already built by Kaisone.",
+    details: ["Routine maintenance", "Small improvements", "Priority support"],
   },
 ] as const satisfies readonly Service[];
-
-export const education = [
-  { id: "ai-fundamentals", title: "AI fundamentals", description: "Core concepts and real-world applications for educators and students." },
-  { id: "responsible-use", title: "Responsible use", description: "Privacy, verification, and clear boundaries for safer adoption." },
-  { id: "classroom-productivity", title: "Classroom productivity", description: "Practical workflows for preparation, research, and learning support." },
-  { id: "school-operations", title: "School operations", description: "Reduce administrative friction and improve access to information." },
-] as const satisfies readonly EducationTopic[];
 
 export const initiatives = [
   { id: "fk-school-platform", name: "FK School Platform", status: "Prototype", description: "A focused platform concept for communication, learning resources, and school operations." },
@@ -98,8 +97,8 @@ export const initiatives = [
 ] as const satisfies readonly Initiative[];
 
 export const processSteps = [
-  { id: "assess", title: "Assess", description: "Understand the goals, constraints, people, and current workflow." },
-  { id: "prioritize", title: "Prioritize", description: "Choose the smallest high-impact opportunity worth acting on." },
-  { id: "build", title: "Build", description: "Deliver the training, automation, or software the situation needs." },
-  { id: "transfer", title: "Transfer", description: "Document the system and leave the team able to use it well." },
+  { id: "understand", title: "Understand", description: "Map the current process, its constraints, and where work is getting stuck." },
+  { id: "define", title: "Define", description: "Agree on the useful outcome and the smallest system worth building." },
+  { id: "build", title: "Build", description: "Create and test the internal tool, automation, AI workflow, or prototype." },
+  { id: "handover", title: "Handover", description: "Launch with clear documentation so the people doing the work can use it." },
 ] as const satisfies readonly ProcessStep[];
