@@ -2,6 +2,14 @@
 
 Public website for Kaisone, an AI agency in Tanzania focused on practical AI training, workflow automation, and focused software.
 
+## Live deployment
+
+- Site: https://sweet-pie-4a3722.netlify.app
+- Temporary access password: `My-Drop-Site`
+- Release: Website v1
+
+This is an anonymous Netlify Drop deployment. It must be claimed through the open Netlify claim page before the temporary claim window expires to preserve the site and take ownership of future deployments.
+
 ## Commands
 
 ```powershell
