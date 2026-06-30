@@ -4,3 +4,4 @@ coverage/
 *.local
 .playwright-cli/
 .netlify/
+.worktrees/
