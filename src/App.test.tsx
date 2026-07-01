@@ -65,7 +65,7 @@ describe("Kaisone website", () => {
   it("expands an approved service with its price and inclusions", () => {
     render(<App />);
     const service = screen.getByRole("button", { name: /Workflow Fix/i });
-    expect(service).toHaveTextContent("TZS 900K");
+    expect(service).toHaveTextContent("Starting from TZS 900K");
     fireEvent.click(service);
     expect(service).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByText("Process mapping")).toBeInTheDocument();

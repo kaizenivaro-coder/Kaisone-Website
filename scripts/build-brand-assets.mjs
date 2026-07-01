@@ -5,6 +5,7 @@ import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sourceLogo = path.join(root, 'assets', 'source', 'kaisone-logo-original.jpg');
+const sourceHero = path.join(root, 'assets', 'source', 'kaisone-hero-business-source.png');
 const brandDir = path.join(root, 'public', 'brand');
 const mediaDir = path.join(root, 'public', 'media');
 
@@ -76,14 +77,9 @@ await sharp(whiteMark)
   .png({compressionLevel: 9})
   .toFile(path.join(brandDir, 'favicon-32.png'));
 
-await sharp(path.join(mediaDir, 'kaisone-hero-source.png'))
+await sharp(sourceHero)
   .resize(1920, 1080, {fit: 'cover', position: 'center'})
-  .webp({quality: 86, smartSubsample: true})
-  .toFile(path.join(mediaDir, 'kaisone-hero.webp'));
+  .jpeg({quality: 88, mozjpeg: true})
+  .toFile(path.join(mediaDir, 'kaisone-hero-business.jpg'));
 
-await sharp(path.join(mediaDir, 'kaisone-education-source.png'))
-  .resize(1440, 960, {fit: 'cover', position: 'center'})
-  .webp({quality: 86, smartSubsample: true})
-  .toFile(path.join(mediaDir, 'kaisone-education.webp'));
-
-console.log('Kaisone brand and media assets generated.');
+console.log('Kaisone brand and launch hero assets generated.');
