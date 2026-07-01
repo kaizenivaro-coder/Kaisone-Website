@@ -1,9 +1,10 @@
 import { Brand } from "./Brand";
+import { sitePath } from "../lib/sitePath";
 
 export function Privacy() {
   return (
     <main className="privacy" id="top">
-      <header className="privacy-header"><div className="container"><Brand homeHref="/" /><a href="/">Back to home</a></div></header>
+      <header className="privacy-header"><div className="container"><Brand homeHref={sitePath()} /><a href={sitePath()}>Back to home</a></div></header>
       <section className="section section--paper privacy-content" aria-labelledby="privacy-title">
         <div className="container privacy-grid">
           <div><p className="section-label">Privacy notice</p><h1 id="privacy-title">Privacy</h1><p className="lead">How project inquiry information is handled on this website.</p></div>

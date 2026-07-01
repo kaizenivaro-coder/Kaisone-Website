@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { sitePath } from "../lib/sitePath";
 
 type ContactStatus = "idle" | "sending" | "sent" | "copied" | "error";
 
@@ -50,8 +51,9 @@ function formatInquiry(payload: InquiryPayload) {
 
 export function Contact() {
   const [status, setStatus] = useState<ContactStatus>("idle");
+  const isPrototype = import.meta.env.VITE_PROTOTYPE_PREVIEW === "true";
   const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
-  const whatsappNumber = String(import.meta.env.VITE_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
+  const whatsappNumber = isPrototype ? "" : String(import.meta.env.VITE_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
   const whatsappHref = whatsappNumber
     ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
     : null;
@@ -101,17 +103,22 @@ export function Contact() {
     <section className="section section--contact" id="contact" aria-labelledby="contact-title">
       <div className="container contact-grid">
         <div><p className="section-label">Contact</p><h2 id="contact-title">Discuss the process you want to improve.</h2><p>Share how the work happens now and what a useful outcome would look like.</p><p className="location">Dar es Salaam · East Africa Time</p>{whatsappHref ? <a className="button button--outline whatsapp-cta" href={whatsappHref} aria-label="Discuss your project on WhatsApp">Discuss your project</a> : null}</div>
-        <form className="contact-form" onSubmit={submit}>
+        {isPrototype ? (
+          <div className="prototype-contact" aria-label="Prototype contact status">
+            <p className="section-label">Prototype mode</p>
+            <p>Inquiry submission is disabled in this prototype.</p>
+          </div>
+        ) : <form className="contact-form" onSubmit={submit}>
           <div className="form-row"><label>Name<input name="name" autoComplete="name" required /></label><label>Organization<input name="organization" autoComplete="organization" required /></label></div>
           <label>Contact<input name="contact" autoComplete="email" required /></label>
           <label>Problem<textarea name="problem" rows={3} required /></label>
           <label>Current process<textarea name="currentProcess" rows={4} required /></label>
           <label>Desired outcome<textarea name="outcome" rows={3} required /></label>
           <div className="form-row"><label>Budget<input name="budget" required /></label><label>Timeframe<input name="timeframe" required /></label></div>
-          <label className="consent"><input name="consent" type="checkbox" value="yes" required /><span>I consent to Kaisone using these details to assess and respond to my inquiry. See the <a href="/privacy">privacy notice</a>.</span></label>
+          <label className="consent"><input name="consent" type="checkbox" value="yes" required /><span>I consent to Kaisone using these details to assess and respond to my inquiry. See the <a href={sitePath("privacy")}>privacy notice</a>.</span></label>
           <button className="button button--primary" type="submit" disabled={status === "sending"}>Discuss your project</button>
           <p className="form-status" aria-live="polite">{message}</p>
-        </form>
+        </form>}
       </div>
     </section>
   );

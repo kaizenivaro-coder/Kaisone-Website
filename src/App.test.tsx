@@ -132,6 +132,17 @@ describe("Kaisone website", () => {
     );
   });
 
+  it("labels the GitHub Pages build as a prototype and disables inquiry collection", () => {
+    vi.stubEnv("VITE_PROTOTYPE_PREVIEW", "true");
+    render(<App />);
+
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "Prototype preview. This temporary test site is not accepting inquiries.",
+    );
+    expect(screen.queryByLabelText("Name")).not.toBeInTheDocument();
+    expect(screen.getByText("Inquiry submission is disabled in this prototype.")).toBeInTheDocument();
+  });
+
   it("renders a standalone privacy view and links to it from the footer", () => {
     const { unmount } = render(<App />);
     expect(screen.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
